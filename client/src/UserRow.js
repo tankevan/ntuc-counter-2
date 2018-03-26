@@ -30,7 +30,7 @@ class UserRow extends Component {
     if (!enter_queue_time.clicked) {
       add_enter_queue_button = <div style={buttonStyle} class="mini ui button" onClick={() => {addStartTime(userId, _id)}}>Enter Queue</div>;
     } else {
-      add_enter_queue_button = <div style={buttonStyleHighlighted} class="mini ui button">{enter_queue_time.value}</div>;
+      add_enter_queue_button = <div style={buttonStyleHighlighted} class="mini ui blue button">{enter_queue_time.value}</div>;
     };
     if (!start_service_time.clicked) {
       add_start_service_button = <div style={buttonStyle} class="mini ui button" onClick={() => {addStartServiceTime(userId, _id)}}>Start Service</div>;
@@ -40,14 +40,14 @@ class UserRow extends Component {
     if (!leave_service_time.clicked) {
       add_leave_service_button = <div style={buttonStyle} class="mini ui button" onClick={() => {addLeaveServiceTime(userId, _id)}}>Leave Service</div>;
     } else {
-      add_leave_service_button = <div style={buttonStyleHighlighted} class="mini ui button">{leave_service_time.value}</div>;
+      add_leave_service_button = <div style={buttonStyleHighlighted} class="mini ui blue button">{leave_service_time.value}</div>;
     };
 
     let add_station_buttons;
     let station_list = [1, 2, 3, 4, 5, 6, 7, 8];
     add_station_buttons = station_list.map((number) => {
       if (number === station_no) {
-        return <button style={buttonStyleHighlighted} class="mini ui button" onClick={() => {addStationNo(userId, _id, number)}}>S{number}</button>;
+        return <button style={buttonStyleHighlighted} class="mini ui blue button" onClick={() => {addStationNo(userId, _id, number)}}>S{number}</button>;
       } else {
         return <button style={buttonStyle} class="mini ui button" onClick={() => {addStationNo(userId, _id, number)}}>S{number}</button>;
       }
@@ -57,9 +57,9 @@ class UserRow extends Component {
     let age_list = ["Youth", "Working", "Elderly"];
     add_age_buttons = age_list.map((label, idx) => {
       if ((idx+1) === age) {
-        return <button style={buttonStyleHighlighted} class="ui button" onClick={() => {addAge(userId, _id, idx+1)}}>{label}</button>;
+        return <button style={buttonStyleHighlighted} class="ui blue button" onClick={() => {addAge(userId, _id, idx+1)}}>{label}</button>;
       } else {
-        return <button style={buttonStyle} class="ui blue button" onClick={() => {addAge(userId, _id, idx+1)}}>{label}</button>;
+        return <button style={buttonStyle} class="ui button" onClick={() => {addAge(userId, _id, idx+1)}}>{label}</button>;
       }
     });
 
@@ -67,9 +67,9 @@ class UserRow extends Component {
     let item_list = ["Handful", "Basket", "Trolley"];
     add_item_buttons = item_list.map((label, idx) => {
       if ((idx+1) === item_no) {
-        return <button style={buttonStyleHighlighted} class="ui button" onClick={() => {addItemNo(userId, _id, idx+1)}}>{label}</button>;
+        return <button style={buttonStyleHighlighted} class="ui blue button" onClick={() => {addItemNo(userId, _id, idx+1)}}>{label}</button>;
       } else {
-        return <button style={buttonStyle} class="ui blue button" onClick={() => {addItemNo(userId, _id, idx+1)}}>{label}</button>;
+        return <button style={buttonStyle} class="ui button" onClick={() => {addItemNo(userId, _id, idx+1)}}>{label}</button>;
       }
     });
 

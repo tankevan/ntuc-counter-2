@@ -15,7 +15,7 @@ class App extends Component {
     if (hostname === 'localhost') { 
       this.url = 'http://localhost:3001/api/users';
     } else {
-      this.url = 'http://ntuc-counter.herokuapp.com/api/users';
+      this.url = '/';
     }
     
   }
