@@ -15,7 +15,8 @@ var UsersSchema = new Schema({
                        clicked: Boolean },
  station_no: { type: Number, default: 0},
  age: { type: Number, default: 0 },
- item_no: { type: Number, default: 0},
+ item_no: { type: Number, default: 0 },
+ collector_no: { type: Number, default: 0 }
 });
 
 //export our module to use in server.js

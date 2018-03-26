@@ -51,9 +51,9 @@ router.get('/', function(req, res) {
  res.json({ message: 'API Initialized!'});
 });
 
-router.route('/users')
+router.route('/:collector_no/users')
   .get(function(req, res) {
-    User.find(function(err, users) {
+    User.find({ "collector_no": req.params.collector_no}, function(err, users) {
       if (err) res.send(err);
       res.json(users);
     });
@@ -66,6 +66,7 @@ router.route('/users')
     user.station_no = req.body.station_no;
     user.age = req.body.age;
     user.item_no = req.body.item_no;
+    user.collector_no = req.params.collector_no;
 
     user.save(function(err) {
       if (err) res.send(err);

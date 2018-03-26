@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       userCount: 0,
       usersData: [],
+      collectorNo: 0,
     };
 
     const hostname = window && window.location && window.location.hostname;
@@ -22,11 +23,10 @@ class App extends Component {
 
   componentDidMount() {
     this.loadUsersFromServer();
-    setInterval(this.loadUsersFromServer, 10000);
   }
 
-  loadUsersFromServer = () => {
-    axios.get('/api/users')
+  loadUsersFromServer = (collectorNo = this.state.collectorNo) => {
+    axios.get(`/api/${collectorNo}/users`)
     .then(res => {
       this.setState({ usersData: res.data,
                       userCount: res.data.length });
@@ -36,6 +36,9 @@ class App extends Component {
   updateUseronServer = (user_id, user) => {
     console.log(user_id, user);
     axios.put(`/api/users/${user_id}`, user)
+    .then(res => {
+      this.loadUsersFromServer();
+    })
     .catch(err => {
       console.log(err);
     });
@@ -44,6 +47,7 @@ class App extends Component {
   deleteUseronServer = (user_id) => {
     axios.delete(`/api/users/${user_id}`)
     .then(res => {
+      this.loadUsersFromServer();
       console.log('User deleted');
     })
     .catch(err => {
@@ -69,10 +73,10 @@ class App extends Component {
       usersData: usersData,
     }));
 
-    axios.post('/api/users/', userRow)
-    // .then(res => {
-    //   this.loadCommentsFromServer();
-    // })
+    axios.post(`/api/${this.state.collectorNo}/users/`, userRow)
+    .then(res => {
+      this.loadUsersFromServer();
+    })
     .catch(err => {
       console.error(err);
     });
@@ -80,7 +84,7 @@ class App extends Component {
 
   addStartTime = (userId, uniqueId) => {
       const usersData = this.state.usersData;
-      usersData[userId]["enter_queue_time"] = { value: Date(),
+      usersData[userId]["enter_queue_time"] = { value: "loading",
                                                 clicked: true };
       this.setState({
         usersData: usersData,
@@ -95,7 +99,7 @@ class App extends Component {
 
   addStartServiceTime = (userId, uniqueId) => {
     const usersData = this.state.usersData;
-    usersData[userId]["start_service_time"] = { value: Date(),
+    usersData[userId]["start_service_time"] = { value: "loading",
                                                 clicked: true };
     this.setState({
       usersData: usersData,
@@ -110,7 +114,7 @@ class App extends Component {
 
   addLeaveServiceTime = (userId, uniqueId) => {
     const usersData = this.state.usersData;
-    usersData[userId]["leave_service_time"] = { value: Date(),
+    usersData[userId]["leave_service_time"] = { value: "loading",
                                                 clicked: true };
     this.setState({
       usersData: usersData,
@@ -165,6 +169,13 @@ class App extends Component {
     this.deleteUseronServer(uniqueId);
   }
 
+  updateCollectorNo = (newNumber) => {
+    this.setState({
+      collectorNo: newNumber,
+    }); // cannot depend on setState to set the state in time for function call
+    this.loadUsersFromServer(newNumber);
+  }
+
   render() {
     let count = [];
     for (let a = 1; a <= this.state.userCount; a++) {
@@ -181,17 +192,53 @@ class App extends Component {
 
     const usersData = this.state.usersData;
     let userSection = usersData.map((user, idx) => {
-      return (<UserRow userId={idx} userTimes={user} userFunctions={userFunctions} />);
+      return (<UserRow userId={idx} userTimes={user} userFunctions={userFunctions} collectorNo={this.state.collectorNo}/>);
     });
+
+    const collector_list = [0, 1, 2];
+    const collectorSection = collector_list.map((num) => {
+      if (this.state.collectorNo === num) {
+        return (<button className="ui primary button" onClick={() => this.updateCollectorNo(num)}>{num+1}</button>)
+      } else {
+        return (<button className="ui button" onClick={() => this.updateCollectorNo(num)}>{num+1}</button>)
+      }
+    })
 
     return (
       <div>
-        NTUC Counter 
-        {userSection}
-        <button class="ui primary button" onClick={this.addUser}>Add User</button>
+        <div style={headerDivStyle}>
+          <div style={headerStyle} className="ui buttons">
+            {collectorSection}
+          </div>
+        </div>
+        <div style={bodyStyle}>
+          NTUC Counter 
+          {userSection}
+          <button class="ui primary button" onClick={this.addUser}>Add User</button>
+        </div>
       </div>
     );
   }
+}
+
+const bodyStyle = {
+  'paddingTop': '70px',
+}
+
+const headerDivStyle = {
+  'height': '60px',
+  'width': '100%',
+  'display': 'flex',
+  'position': 'fixed',
+  'background': 'white',
+  'alignItems': 'center',
+  'justifyContent': 'center',
+  'zIndex': '1',
+  'boxShadow': '1px 0.5px 5px rgba(0,0,0,0.2)',
+}
+
+const headerStyle = {
+  'height': '50px',
 }
 
 export default App;

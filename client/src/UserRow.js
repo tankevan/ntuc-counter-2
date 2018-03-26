@@ -9,7 +9,7 @@ class UserRow extends Component {
   }
 
   render() {
-    const { userId, userTimes, userFunctions } = this.props;
+    const { userId, userTimes, userFunctions, collectorNo } = this.props;
     const { _id,
             enter_queue_time,
             start_service_time,
@@ -28,17 +28,23 @@ class UserRow extends Component {
     let add_enter_queue_button;
     let add_start_service_button;
     let add_leave_service_button;
-    if (!enter_queue_time.clicked) {
+    if (enter_queue_time.value === 'loading') {
+      add_enter_queue_button = <div style={buttonStyle} class="mini blue loading ui button">Loading</div>;
+    } else if (!enter_queue_time.clicked) {
       add_enter_queue_button = <div style={buttonStyle} class="mini ui button" onClick={() => {addStartTime(userId, _id)}}>Enter Queue</div>;
     } else {
       add_enter_queue_button = <div style={buttonStyleHighlighted} class="mini ui blue button">{enter_queue_time.value}</div>;
     };
-    if (!start_service_time.clicked) {
+    if (start_service_time.value === 'loading') {
+      add_start_service_button = <div style={buttonStyle} class="mini blue loading ui button">Loading</div>;
+    } else if (!start_service_time.clicked) {
       add_start_service_button = <div style={buttonStyle} class="mini ui button" onClick={() => {addStartServiceTime(userId, _id)}}>Start Service</div>;
     } else {
       add_start_service_button = <div style={buttonStyleHighlighted} class="mini ui blue button">{start_service_time.value}</div>;
     };
-    if (!leave_service_time.clicked) {
+    if (leave_service_time.value === 'loading') {
+      add_leave_service_button = <div style={buttonStyle} class="mini blue loading ui button">Loading</div>;
+    } else if (!leave_service_time.clicked) {
       add_leave_service_button = <div style={buttonStyle} class="mini ui button" onClick={() => {addLeaveServiceTime(userId, _id)}}>Leave Service</div>;
     } else {
       add_leave_service_button = <div style={buttonStyleHighlighted} class="mini ui blue button">{leave_service_time.value}</div>;
@@ -82,7 +88,7 @@ class UserRow extends Component {
 
     return (
       <div className="user_row">
-        <p style={inlineBlock}>User {userId}</p>
+        <p style={inlineBlock}>User {userId} Collector No {collectorNo + 1}</p>
         <div class="mini ui buttons">
           {add_enter_queue_button}
           {add_start_service_button}
