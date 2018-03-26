@@ -155,6 +155,15 @@ class App extends Component {
     const body = { "item_no": itemNo };
     this.updateUseronServer(uniqueId, body);
   }
+  removeUser = (userId, uniqueId) => {
+    const usersData = this.state.usersData;
+    usersData.splice(userId, 1);
+    this.setState({
+      usersData: usersData,
+    })
+
+    this.deleteUseronServer(uniqueId);
+  }
 
   render() {
     let count = [];
@@ -167,7 +176,8 @@ class App extends Component {
                           "addLeaveServiceTime": this.addLeaveServiceTime,
                           "addStationNo": this.addStationNo,
                           "addAge": this.addAge,
-                          "addItemNo": this.addItemNo, };
+                          "addItemNo": this.addItemNo,
+                          "removeUser": this.removeUser };
 
     const usersData = this.state.usersData;
     let userSection = usersData.map((user, idx) => {
@@ -177,8 +187,8 @@ class App extends Component {
     return (
       <div>
         NTUC Counter 
-        <button class="ui primary button" onClick={this.addUser}>Add User</button>
         {userSection}
+        <button class="ui primary button" onClick={this.addUser}>Add User</button>
       </div>
     );
   }

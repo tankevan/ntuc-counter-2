@@ -22,7 +22,8 @@ class UserRow extends Component {
             addLeaveServiceTime,
             addStationNo,
             addAge,
-            addItemNo } = userFunctions;
+            addItemNo,
+            removeUser } = userFunctions;
 
     let add_enter_queue_button;
     let add_start_service_button;
@@ -73,6 +74,12 @@ class UserRow extends Component {
       }
     });
 
+    const remove_user_button = (
+      <button style={buttonStyle} className="mini ui icon red button" onClick={() => {removeUser(userId, _id)}}>
+        <i className="window close icon"></i>
+      </button>
+    )
+
     return (
       <div className="user_row">
         <p style={inlineBlock}>User {userId}</p>
@@ -89,7 +96,8 @@ class UserRow extends Component {
         </div>
         <div class="mini ui buttons">
           {add_item_buttons}
-        </div>   
+        </div>
+        {remove_user_button}   
       </div>
     );
   }
