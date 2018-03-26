@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   loadUsersFromServer = () => {
-    axios.get(this.url)
+    axios.get('/api/users')
     .then(res => {
       this.setState({ usersData: res.data,
                       userCount: res.data.length });
@@ -35,14 +35,14 @@ class App extends Component {
 
   updateUseronServer = (user_id, user) => {
     console.log(user_id, user);
-    axios.put(`${this.url}/${user_id}`, user)
+    axios.put(`/api/users/${user_id}`, user)
     .catch(err => {
       console.log(err);
     });
   }
 
   deleteUseronServer = (user_id) => {
-    axios.delete(`${this.url}/${user_id}`)
+    axios.delete(`/api/users/${user_id}`)
     .then(res => {
       console.log('User deleted');
     })
