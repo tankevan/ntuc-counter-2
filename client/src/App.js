@@ -69,7 +69,7 @@ class App extends Component {
       usersData: usersData,
     }));
 
-    axios.post(this.url, userRow)
+    axios.post('/api/users/', userRow)
     // .then(res => {
     //   this.loadCommentsFromServer();
     // })
