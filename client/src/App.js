@@ -25,6 +25,12 @@ class App extends Component {
     this.loadUsersFromServer();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.userCount !== this.state.userCount) {
+      this.addUserButton.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   loadUsersFromServer = (collectorNo = this.state.collectorNo) => {
     axios.get(`/api/${collectorNo}/users`)
     .then(res => {
@@ -72,6 +78,7 @@ class App extends Component {
       userCount: prevState.userCount+1,
       usersData: usersData,
     }));
+    
 
     axios.post(`/api/${this.state.collectorNo}/users/`, userRow)
     .then(res => {
@@ -214,7 +221,7 @@ class App extends Component {
         <div style={bodyStyle}>
           NTUC Counter 
           {userSection}
-          <button class="ui primary button" onClick={this.addUser}>Add User</button>
+          <button ref={(el) => this.addUserButton = el}class="ui primary button" onClick={this.addUser}>Add User</button>
         </div>
       </div>
     );
