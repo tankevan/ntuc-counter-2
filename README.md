@@ -26,11 +26,13 @@ Once the data was in mLab, we could pull the records out in the JSON format by m
 ## Screenshots
 
 ### Application used by team members for data collection
-<img src='screenshots/ss1.jpg' width="500" />
+<img src='screenshots/ss1.jpg' width="400" alt="App screenshot"/>
 
 
 ### Data stored on mLab
 ![Database on mLab](screenshots/ss2.jpg)
+<img src='screenshots/ss1.jpg' width="700" alt="mLab Database"/>
+
 
 ### Teammates (discreetly) collecting data at the supermarket
-<img src='screenshots/ss3.jpg' width="500" />
+<img src='screenshots/ss3.jpg' width="400" alt="Teammates at supermarket"/>
