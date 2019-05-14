@@ -30,8 +30,7 @@ Once the data was in mLab, we could pull the records out in the JSON format by m
 
 
 ### Data stored on mLab
-![Database on mLab](screenshots/ss2.jpg)
-<img src='screenshots/ss1.jpg' width="700" alt="mLab Database"/>
+<img src='screenshots/ss2.jpg' width="700" alt="mLab Database"/>
 
 
 ### Teammates (discreetly) collecting data at the supermarket
